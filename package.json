@@ -1,0 +1,23 @@
+{
+  "name": "data-analysis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mirsmartgrp/data-analysis.git"
+  },
+  "author": "Vincent Wochnik <v.wochnik@gmail.com> (https://github.com/vwochni)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirsmartgrp/data-analysis/issues"
+  },
+  "homepage": "https://github.com/mirsmartgrp/data-analysis",
+  "dependencies": {
+    "walk": "^2.3.9",
+    "winston": "^0.9.0"
+  }
+}
