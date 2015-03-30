@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/mirsmartgrp/data-analysis",
   "dependencies": {
+    "handlebars": "^3.0.1",
     "lodash": "^3.6.0",
+    "mkdirp": "^0.5.0",
     "stats-lite": "^1.0.3",
     "walk": "^2.3.9",
     "winston": "^0.9.0"
