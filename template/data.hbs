@@ -3,12 +3,17 @@
   <head>
     <title>Data</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <style>.page{margin: 50px auto;width:750px}</style>
   </head>
   <body>
-    <h1>Data</h1>
-    <h2>Accelerometer</h2>
-    {{table data.accelerometer}}
-    <h2>Gyroscope</h2>
-    {{table data.gyroscope}}
+    <div class="page">
+      <h1>Data</h1>
+      <h2>Accelerometer</h2>
+      {{table data.accelerometer}}
+      <h2>Gyroscope</h2>
+      {{table data.gyroscope}}
+      <h2>Heart Rate</h2>
+      {{table data.hrm}}
+    </div>
   </body>
 </html>
