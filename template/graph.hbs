@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <style>.page{margin: 50px auto;width:750px}</style>
+  </head>
+  <body>
+    <div class="page">
+      <h1>Graph</h1>
+      {{#if data.accelerometer}}
+        <h2>Accelerometer</h2>
+        <canvas id="accelerometer" width="700" height="400"></canvas>
+      {{/if}}
+      {{#if data.gyroscope}}
+        <h2>Gyroscope</h2>
+        <canvas id="gyroscope" width="700" height="400"></canvas>
+      {{/if}}
+      {{#if data.hrm}}
+        <h2>Heart Rate</h2>
+        <canvas id="hrm" width="700" height="400"></canvas>
+      {{/if}}
+    </div>
+    <script type="text/javascript">
+      var data = window.data = {{json data}}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+    <script>
+      (function(wnd) {
+        function mkdataset(data) {
+          var colors = ["rgba(151,187,205,1)", "rgba(205,151,187,1)", "rgba(151,205,187,1)"];
+          var result = {labels: [], datasets: []}, hashset = {};
+
+          for (var i = 0; i < data.length; i++) {
+            result.labels.push('T: '+data[i].time);
+
+            var values = (typeof data[i].value !== 'object') ? {value: data[i].value} : data[i].value;
+            for (var prop in values) {
+              if (!values.hasOwnProperty(prop))
+                continue;
+
+              if (!hashset.hasOwnProperty(prop)) {
+                var dataset = {
+                  label: prop.toUpperCase(),
+                  strokeColor: colors.pop(),
+                  data: []
+                };
+                result.datasets.push(dataset);
+                hashset[prop] = dataset;
+              }
+
+              hashset[prop].data.push(values[prop]);
+            }
+          }
+
+          return result;
+        }
+
+        function mkchart(id, input) {
+          var data = mkdataset(input);
+          var ctx = document.getElementById(id).getContext("2d");
+          var crt = new Chart(ctx).Line(data, {
+            scaleIntegersOnly: false,
+            pointDot: false,
+            datasetStrokeWidth: 1,
+            datasetFill: false,
+            tooltipTemplate: "<%if (label){%><%=label%>; <%}%><%= datasetLabel %>: <%= value %>",
+            multiTooltipTemplate: "<%= datasetLabel %>: <%= value %>"
+          });
+        }
+
+        {{#if data.accelerometer}}
+          mkchart("accelerometer", wnd.data.accelerometer);
+        {{/if}}
+        {{#if data.gyroscope}}
+          mkchart("gyroscope", wnd.data.gyroscope);
+        {{/if}}
+        {{#if data.hrm}}
+          mkchart("hrm", wnd.data.hrm);
+        {{/if}}
+      })(window);
+    </script>
+  </body>
+</html>
